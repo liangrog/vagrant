@@ -12,4 +12,6 @@ You might encounter vagrant error `No guest IP was given to the Vagrant core NFS
 ```shell
 vagrant plugin install vagrant-vbguest
 ```
+If your box has been created before the plugin is installed, you will need to run `vagrant halt` then `vagrant up` again.
+
 Details could be found in [vagrant issue](https://github.com/hashicorp/vagrant/issues/7070)
