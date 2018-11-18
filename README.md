@@ -1,5 +1,5 @@
 # Vagrant
-Vagrant files for environments
+Vagrant files for bootstrapping environments.
 
 All provisioning files are located in directory `provisioners`.
 
