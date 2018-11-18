@@ -3,6 +3,7 @@
 HOME_DIR="/home/vagrant"
 WORKING_DIR="/tmp"
 BASH_PROFILE=$HOME_DIR/.bash_profile
+USER="vagrant"
 
 install_go () {
 	echo "+++++ Installing go 1.11.2"
@@ -11,7 +12,7 @@ install_go () {
 	tar -C /usr/local -xzf go1.11.2.linux-amd64.tar.gz
 	rm go1.11.2.linux-amd64.tar.gz
 
-	mkdir -p $HOME_DIR/go/bin
+	sudo -u $USER mkdir -p $HOME_DIR/go/bin
 
 	#
 	echo "+++++ Configure .bash_profile for go"

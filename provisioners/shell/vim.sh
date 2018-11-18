@@ -3,6 +3,7 @@
 HOME_DIR="/home/vagrant"
 WORKING_DIR="/tmp"
 BASH_PROFILE=$HOME_DIR/.bash_profile
+USER="vagrant"
 
 install_vim () {
 	echo "+++++ Installing vim v8.1.0513"
@@ -10,6 +11,8 @@ install_vim () {
 	git clone https://github.com/vim/vim.git
 
 	cd vim/src && git checkout v8.1.0513
+	
+	sudo -u $USER mkdir $HOME_DIR/.local
 
 	./configure \
 	  --disable-nls \
@@ -18,7 +21,7 @@ install_vim () {
 	  --enable-multibyte  \
 	  --enable-pythoninterp \
 	  --enable-rubyinterp \
-	  --prefix=/home/vagrant/.local/vim \
+	  --prefix=$HOME_DIR/.local/vim \
 	  --with-features=huge  \
 	  --with-python-config-dir=/usr/lib/python2.7/config \
 	  --with-tlib=ncurses \
@@ -29,7 +32,7 @@ install_vim () {
 	echo "+++++ Configuring .bash_profile for vim"
 
 	if ! grep -q 'vim\/bin' $BASH_PROFILE; then 
-	    cat <<EOF >> $HOME_DIR/.bash_profile
+	    sudo -u $USER cat <<EOF >> $HOME_DIR/.bash_profile
 
 if [ -d "\$HOME/.local/vim/bin/" ] ; then
    PATH="\$HOME/.local/vim/bin/:\$PATH"
@@ -44,7 +47,7 @@ EOF
 
 	echo "+++++ Configure vimrc"
 
-	cat <<EOF > $HOME_DIR/.vimrc
+	sudo -u $USER cat <<EOF > $HOME_DIR/.vimrc
 syntax on
 filetype plugin indent on
 
@@ -66,11 +69,11 @@ install_vim_go () {
 	echo "+++++ Installing vim go"
 
 	# Don't forget to run :GoInstallBinaries in vi when first time using it
-	git clone https://github.com/fatih/vim-go.git $HOME_DIR/.vim/pack/plugins/start/vim-go
+	sudo -u $USER git clone https://github.com/fatih/vim-go.git $HOME_DIR/.vim/pack/plugins/start/vim-go
 
 	echo "+++++ Configure vimrc"
 
-	cat <<EOF >> $HOME_DIR/.vimrc
+	sudo -u $USER cat <<EOF >> $HOME_DIR/.vimrc
 
 let g:go_version_warning = 0
 EOF
