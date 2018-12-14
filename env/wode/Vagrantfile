@@ -49,4 +49,5 @@ Vagrant.configure(2) do |config|
   config.vm.provision "shell", name: "vim", path: "../../provisioners/shell/vim.sh"
   config.vm.provision "shell", name: "go", path: "../../provisioners/shell/go.sh"
   config.vm.provision "shell", name: "kubernetes", path: "../../provisioners/shell/kube.sh"
+  config.vm.provision "shell", name: "docker", path: "../../provisioners/shell/docker.sh"
 end
