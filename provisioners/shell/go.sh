@@ -4,13 +4,14 @@ HOME_DIR="/home/vagrant"
 WORKING_DIR="/tmp"
 BASH_PROFILE=$HOME_DIR/.bash_profile
 USER="vagrant"
+VERSION="1.13"
 
 install_go () {
-	echo "+++++ Installing go 1.11.2"
+	echo "+++++ Installing go $VERSION"
 
-	wget -q https://dl.google.com/go/go1.11.2.linux-amd64.tar.gz
-	tar -C /usr/local -xzf go1.11.2.linux-amd64.tar.gz
-	rm go1.11.2.linux-amd64.tar.gz
+	wget -q "https://dl.google.com/go/go$VERSION.linux-amd64.tar.gz"
+	tar -C /usr/local -xzf "go$VERSION.linux-amd64.tar.gz"
+	rm "go$VERSION.linux-amd64.tar.gz"
 
 	sudo -u $USER mkdir -p $HOME_DIR/go/bin
 
@@ -44,8 +45,8 @@ yum install -y wget
 cd $WORKING_DIR
 
 GO_VERSION=$(sudo -i -u vagrant go version | cut -f 3 -d " ")
-if [ "$GO_VERSION" == "go1.11.2" ]; then
-	echo "go 1.11 exists, skip installation"
+if [ "$GO_VERSION" == "go$VERSION" ]; then
+	echo "go $VERSION exists, skip installation"
 else
 	install_go
 fi

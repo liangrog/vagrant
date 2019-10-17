@@ -12,7 +12,12 @@ yum install -y epel-release
 
 yum update -y
 
-yum install -y wget git cntlm bind-utils 
+yum install -y wget \
+	git \
+	cntlm \
+	bind-utils \
+	bash-completion \
+	bash-completion-extras 
 
 
 echo "********** Finished provisioning core **********"
