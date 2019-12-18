@@ -21,6 +21,25 @@ EOF
 	yum install -y kubectl
 }
 
+install_aws_iam_authenticator () {
+	echo "+++++ Installing aws-iam-authenticator 1.14.6"
+
+	curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.14.6/2019-08-22/bin/linux/amd64/aws-iam-authenticator
+	
+	chmod +x ./aws-iam-authenticator
+
+	mv aws-iam-authenticator /usr/local/bin/
+}
+
+install_helm () {
+	echo "+++++ Installing helm v3.0.2"
+
+	curl -o helm.tar.gz https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz
+	tar -zxvf helm.tar.gz
+	mv linux-amd64/helm /usr/local/bin/helm
+        rm -rf helm.tar.gz linux-amd64
+}
+
 #install_virtualbox () {
 #	echo "+++++ Installing virtualbox"
 #	
@@ -44,6 +63,10 @@ EOF
 echo "********** Start provisioning kubernetes packages **********"
 
 install_kubectl
+
+install_aws_iam_authenticator
+
+install_helm
 
 #install_virtualbox
 
