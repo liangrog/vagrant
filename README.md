@@ -26,3 +26,19 @@ vboxmanage list vms
 wget https://raw.githubusercontent.com/mitchellh/vagrant/master/keys/vagrant.pub -a .ssh/authorized_keys
 ```
 3. Reload the vbox.
+
+### Failed to mount NFS share folder after changing folder path
+```
+==> default: Exporting NFS shared folders...
+NFS is reporting that your exports file is invalid. Vagrant does
+this check before making any changes to the file. Please correct
+the issues below and execute "vagrant reload":
+
+exports:2: path contains non-directory or non-existent components: /Users/<username>/path/to/vagrant
+exports:2: no usable directories in export entry
+exports:2: using fallback (marked offline): /
+exports:5: path contains non-directory or non-existent components: /Users/<username>/path/to/vagrant
+exports:5: no usable directories in export entry
+exports:5: using fallback (marked offline): /
+```
+To fix, remove related vagrant entry in `/etc/exports`
