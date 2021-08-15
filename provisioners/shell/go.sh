@@ -4,12 +4,13 @@ HOME_DIR="/home/vagrant"
 WORKING_DIR="/tmp"
 BASH_PROFILE=$HOME_DIR/.bash_profile
 USER="vagrant"
-VERSION="1.13"
+VERSION="1.16.7"
 
 install_go () {
 	echo "+++++ Installing go $VERSION"
 
 	wget -q "https://dl.google.com/go/go$VERSION.linux-amd64.tar.gz"
+        rm -rf /usr/local/go 
 	tar -C /usr/local -xzf "go$VERSION.linux-amd64.tar.gz"
 	rm "go$VERSION.linux-amd64.tar.gz"
 

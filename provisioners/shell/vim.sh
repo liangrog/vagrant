@@ -6,11 +6,13 @@ BASH_PROFILE=$HOME_DIR/.bash_profile
 USER="vagrant"
 
 install_vim () {
-	echo "+++++ Installing vim v8.1.0513"
+	echo "+++++ Installing vim v8.2.3346"
+
+	rm -rf vim
 
 	git clone https://github.com/vim/vim.git
 
-	cd vim/src && git checkout v8.1.0513
+	cd vim/src && git checkout v8.2.3346
 	
 	sudo -u $USER mkdir $HOME_DIR/.local
 
@@ -91,9 +93,9 @@ cd $WORKING_DIR
 
 VIM_VERSION=$(sudo -i -u vagrant vim --version | grep 'VIM' | cut -f 5 -d " " | sed -n '1p')
 
-# Install vim 8.1
-if [ "$VIM_VERSION" == "8.1" ]; then
-	echo "vim 8.1 exists, skip installation"
+# Install vim 8.2
+if [ "$VIM_VERSION" == "8.2" ]; then
+	echo "vim 8.2 exists, skip installation"
 else
 	install_vim	
 fi

@@ -32,12 +32,37 @@ install_aws_iam_authenticator () {
 }
 
 install_helm () {
-	echo "+++++ Installing helm v3.0.2"
+	echo "+++++ Installing helm v3.2.4"
 
-	curl -o helm.tar.gz https://get.helm.sh/helm-v3.0.2-linux-amd64.tar.gz
+	curl -o helm.tar.gz https://get.helm.sh/helm-v3.2.4-linux-amd64.tar.gz
 	tar -zxvf helm.tar.gz
 	mv linux-amd64/helm /usr/local/bin/helm
         rm -rf helm.tar.gz linux-amd64
+}
+
+install_kubebuilder () {
+	echo "+++++ Installing kubebuilder v2.2.0"
+	
+	os="linux"
+	arch="amd64"
+
+	# download kubebuilder and extract it to tmp
+	curl -sL https://go.kubebuilder.io/dl/2.2.0/${os}/${arch} | tar -xz -C /tmp/
+
+	# move to a long-term location and put it on your path
+	# (you'll need to set the KUBEBUILDER_ASSETS env var if you put it somewhere else)
+	mv /tmp/kubebuilder_2.2.0_${os}_${arch} /usr/local/kubebuilder
+	
+	# Use local kubectl
+	rm /usr/local/kubebuilder/bin/kubectl
+
+	if ! grep -q 'kubebuilder\/bin' $HOME_DIR/.bash_profile; then
+	if ! [ -x "$(command -v kubebuilder)" ]; then
+	cat <<EOF >> $HOME_DIR/.bash_profile
+export PATH="/usr/local/kubebuilder/bin:\$PATH"	
+EOF
+	fi
+	fi
 }
 
 #install_virtualbox () {
@@ -64,9 +89,11 @@ echo "********** Start provisioning kubernetes packages **********"
 
 install_kubectl
 
-install_aws_iam_authenticator
+#install_aws_iam_authenticator
 
 install_helm
+
+#install_kubebuilder
 
 #install_virtualbox
 
